@@ -1,0 +1,17 @@
+# 获取帮助信息
+  psql --help
+# 命令行进入postgresql数据库
+  psql username
+# 展示帮助信息
+  \?
+# 展示所有schema
+  \dn
+# 查看当前的查询schema
+  show search_path
+# 设置当前search_path
+  set search_path to schema1,schema2
+# 查看当前search_path下的所有表
+  \d
+# 查看表结构
+  \d tablename
+
