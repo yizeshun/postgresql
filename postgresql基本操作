@@ -13,7 +13,7 @@
 # 查看当前search_path下的所有表
   \d
 # 查看表结构
-  \d tablename
+  \d+ tablename
 # 退出postgresql
   \q
 
