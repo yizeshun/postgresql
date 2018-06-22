@@ -1,0 +1,32 @@
+#作用
+  一般用于将查询到的记录根据字段值进行归类，以便于归类后进行统计
+#示例
+  国家（country）	人口（population）
+          中国	600
+          美国	100
+          加拿大	100
+          英国	200
+          法国	300
+          日本	250
+          德国	200
+          墨西哥	50
+          印度	250
+  数据表如上，要统计亚洲和北美洲的人口，首先需要将国家按洲进行归类，然后再统计
+  采用case when then else end可以很好的解决这个问题
+  select  sum(populiation),
+          case country
+              when '中国'   then '亚洲'
+              when '日本'   then '亚洲'
+              when '美国'   then '北美洲'
+              when '加拿大' then '北美洲'
+              when '墨西哥' then '北美洲'
+              else '其他' end
+  from table1
+         group by case country
+              when '中国'   then '亚洲'
+              when '日本'   then '亚洲'
+              when '美国'   then '北美洲'
+              when '加拿大' then '北美洲'
+              when '墨西哥' then '北美洲'
+              else '其他' end
+         
