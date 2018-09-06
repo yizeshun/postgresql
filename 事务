@@ -1,0 +1,33 @@
+事务是所有数据库系统的一个基本概念。一次事务的要点就是把多个步骤捆绑成一个单一的、 不成功则成仁的操作。
+其它并发的事务是看不到在这些步骤之间的中间状态的，并且如果发生了一些问题， 导致该事务无法完成，那么所有这些步骤都完全不会影响数据库。
+在PostgreSQL的psql中，如果执行一个DML或DDL语句，没有先运行begin;的话，一执行完就马上提交了，不能回滚，这样容易导致误操作的发生。
+不同于Oracle,PG的DDL事务一样是可以回滚的。
+postgresql中开启一个事务
+begin;
+sql1;
+sql2;
+commit;
+begin和commit之间的语句就是该事务的执行过程，如果其中任务一步出现了错误，之间所有的执行结果都将回滚，不会对数据库原有数据产生任何影响。
+#rollback
+begin;
+sql1;
+sql2;
+rollback;
+sql1和sql2的执行直接回滚，不会对原有数据产生影响
+#savepoint
+savepoint可以创建保存点，可以作为rollback的指向
+begin;
+insert into tt values(1);
+insert into tt values(2);
+savepoint savepoint1;
+insert into tt values(3);
+insert into tt values(4);
+savepoint savepoint2;
+insert into tt values(5);
+insert into tt values(6);
+select * from tt;查询语句会得到6行数据
+rollback to savepoint savepoint2;#回滚到保存点savepoint2
+再查看数据
+select * from tt;只会有四行数据
+
+
