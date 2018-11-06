@@ -1,0 +1,6 @@
+row_to_json() 函数，它接受 “行值”并返回 JSON 对象
+select row_to_json(t)
+from (
+  select id, text from tableName
+) AS t
+将查询结果作为json行输出
